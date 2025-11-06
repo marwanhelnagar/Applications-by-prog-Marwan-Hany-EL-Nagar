@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 ادارة طلاب وطالبات القرآن الكريم💾</title>
+    <!-- خطوط عربية محسنة: كايرو للوضوح والاحترافية -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ====================================================================== */
+        /* القسم 1: المتغيرات والثيمات (الأساسية والداكنة) */
+        /* ====================================================================== */
+        :root {
+            /* الثيم الأساسي الفاتح (كخيار احتياطي ولضبط متغيرات الثيم الفاتح) */
+            --primary-color: #3498db; 
+            --secondary-color: #2ecc71;
+            --accent-color: #f1c40f; 
+            --error-color: #e74c3c; 
+            --bg-color: #ecf0f1; 
+            --text-color: #2c3e50; 
+            --container-bg: #ffffff; 
+            --input-bg: #f9f9f9;
+            --border-color: #bdc3c7;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --button-hover-bg: #2980b9;
+        }
+
+        /* --- 1. ثيم الليالي الداكنة (Default Dark) --- */
+        .theme-DarkNights {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #f1c40f;
+            --error-color: #e74c3c;
+            --bg-color: #121212; /* خلفية سوداء عميقة */
+            --text-color: #ecf0f1; /* نص فاتح */
+            --container-bg: #1f1f1f; /* حاوية رمادية داكنة */
+            --input-bg: #2c3e50;
+            --border-color: #3e4f61;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --button-hover-bg: #2980b9;
+        }
+
+        /* --- 2. ثيم الزمرد الداكن --- */
+        .theme-EmeraldDark {
+            --primary-color: #2ecc71; /* الزمردي */
+            --secondary-color: #3498db;
+            --accent-color: #f39c12;
+            --bg-color: #181A1B; 
+            --text-color: #ecf0f1; 
+            --container-bg: #232729; 
+            --input-bg: #2C3A3F;
+            --border-color: #3e5f4a;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --button-hover-bg: #27ae60;
+        }
+        
+        /* --- 3. ثيم المطر البنفسجي --- */
+        .theme-PurpleRain {
+            --primary-color: #9b59b6; /* بنفسجي */
+            --secondary-color: #3498db;
+            --accent-color: #f1c40f;
+            --bg-color: #212130; 
+            --text-color: #ecf0f1; 
+            --container-bg: #2C2C40; 
+            --input-bg: #3A3A55;
+            --border-color: #554477;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --button-hover-bg: #8e44ad;
+        }
+        
+        /* --- 4. ثيم الرمادي الكربوني --- */
+        .theme-CarbonGrey {
+            --primary-color: #f39c12; /* برتقالي للاختيار */
+            --secondary-color: #2ecc71;
+            --accent-color: #3498db;
+            --bg-color: #222222; 
+            --text-color: #ffffff; 
+            --container-bg: #333333; 
+            --input-bg: #444444;
+            --border-color: #555555;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --button-hover-bg: #e67e22;
+        }
+        
+        /* --- 5. ثيم البرتقالي الدامي --- */
+        .theme-BloodOrange {
+            --primary-color: #e67e22; /* برتقالي محمر */
+            --secondary-color: #2ecc71;
+            --accent-color: #3498db;
+            --bg-color: #0d0d0d; 
+            --text-color: #ffffff; 
+            --container-bg: #1a1a1a; 
+            --input-bg: #2a2a2a;
+            --border-color: #4a4a4a;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --button-hover-bg: #d35400;
+        }
+        
+        /* ====================================================================== */
+        /* القسم 2: التنسيقات العامة والهيكلية */
+        /* ====================================================================== */
+        * {
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+
+        body {
+            font-family: 'Amiri', serif;  /* تفضيل كايرو للوضوح */
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            direction: rtl;
+            text-align: right;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px; 
+            background-color: var(--container-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            flex-grow: 1;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+            font-weight: 900;
+        }
+        
+        h2 {
+            color: var(--text-color);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        /* تنسيقات المدخلات والمحددات */
+        input[type="text"], 
+        input[type="number"], 
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px var(--primary-color);
+            background-color: var(--input-bg);
+        }
+        
+        /* تنسيق الأزرار */
+        button {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 5px;
+            text-align: center;
+            white-space: nowrap;
+            transition: all 0.2s ease-in-out;
+        }
+
+        button:hover {
+            background-color: var(--button-hover-bg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        /* ====================================================================== */
+        /* القسم 3: التبويبات (Tabs) والتحكم */
+        /* ====================================================================== */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: var(--input-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .controls-bar > div {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        #theme-selector {
+            padding: 8px;
+            border-radius: 6px;
+            background-color: var(--container-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            font-weight: 700;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: flex-start;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .tab-button {
+            background-color: transparent;
+            color: var(--text-color);
+            border-radius: 0;
+            border-bottom: none;
+            padding: 10px 20px;
+            margin: 0 5px -2px 0;
+            box-shadow: none;
+            font-size: 1rem;
+            opacity: 0.7;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            transition: background-color 0.2s, opacity 0.2s, color 0.2s;
+        }
+
+        .tab-button.active {
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            opacity: 1;
+            font-weight: 700;
+        }
+        
+        .tab-content {
+            display: none;
+            padding-top: 15px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* ====================================================================== */
+        /* القسم 4: لوحة التحكم (Dashboard) */
+        /* ====================================================================== */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background-color: var(--input-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.2);
+            text-align: center;
+        }
+
+        .dashboard-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .dashboard-card p.value {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--secondary-color); /* لون الإبراز للمبالغ */
+            margin: 10px 0 0 0;
+        }
+        
+        /* ====================================================================== */
+        /* القسم 5: الجدول والبحث الفوري */
+        /* ====================================================================== */
+        .search-container {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .search-container input[type="text"] {
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        /* تحسين مظهر حقل المبلغ في الجدول */
+        .amount-cell {
+            font-weight: 900;
+            color: var(--secondary-color);
+        }
+        
+        /* تنسيق عرض التاريخين */
+        .date-cell {
+            font-size: 0.9rem;
+        }
+        
+        .date-cell .hijri {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        /* إخفاء input file الأصلي للاستيراد */
+        #import-file-input {
+            display: none;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            background-color: var(--container-bg);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px; /* ليتناسب مع الأعمدة الجديدة */
+        }
+
+        .data-table th, .data-table td {
+            padding: 14px;
+            text-align: right;
+            border-bottom: 1px solid var(--border-color);
+            word-break: break-word;
+        }
+
+        .data-table th {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            cursor: pointer;
+            position: sticky;
+            top: 0;
+            font-weight: 700;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: var(--input-bg); 
+        }
+
+        .data-table tr:hover {
+            background-color: rgba(52, 152, 219, 0.1); /* تأثير خفيف للتحويم */
+        }
+        
+        .action-buttons-cell button {
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            margin: 2px;
+        }
+        
+        /* ====================================================================== */
+        /* القسم 6: الإهداء في الفوتر */
+        /* ====================================================================== */
+        #footer-gift {
+            color: var(--primary-color);
+            text-align: center;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(52, 152, 219, 0.7);
+            border-top: 2px dashed var(--border-color);
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+            background-color: var(--container-bg);
+            border-radius: 12px;
+        }
+        
+        /* ====================================================================== */
+        /* القسم 7: الاستجابة (Responsive) */
+        /* ====================================================================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .controls-bar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 10px;
+            }
+            
+            .tab-buttons {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                flex-grow: 1;
+                margin: 5px 0;
+                border-radius: 8px;
+            }
+            
+            .tab-button.active {
+                border-bottom: none;
+            }
+            
+            .dashboard-card p.value {
+                font-size: 2rem;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 8px;
+                font-size: 0.85rem;
+            }
+
+            .date-cell .hijri {
+                font-size: 0.7rem;
+            }
+            
+            .action-buttons-cell button {
+                display: block;
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .search-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body class="theme-DarkNights">
+
+<!-- شريط الإشعارات المخصص -->
+<div id="custom-alert" style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%); padding: 10px 20px; background-color: var(--primary-color); color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.5); z-index: 1000; display: none; font-weight: 700;"></div>
+
+<div class="container">
+    
+    <!-- معلومات المستخدم والتحكم في الثيم والتثبيت -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);">
+        <h2 style="font-size: 1.2rem; color: var(--primary-color); margin: 0;">مروان هاني النجار - مطور النظام</h2>
+        <!-- عرض التاريخ والوقت في شريط علوي واضح -->
+        <p id="datetime-display" style="font-weight: 700; color: var(--text-color); margin: 0; text-align: left; font-size: 0.9rem;"></p>
+    </div>
+
+    <h1>📊ادارة طلاب وطالبات القرآن الكريم💾</h1>
+
+    <!-- شريط التحكم بالثيم والتثبيت -->
+    <div class="controls-bar">
+        <div>
+            <label for="theme-selector" style="font-weight: 700;">🎨 اختر الثيم الداكن:</label>
+            <select id="theme-selector" onchange="changeTheme(this.value)">
+                <option value="DarkNights">1. الليالي الداكنة (Default)</option>
+                <option value="EmeraldDark">2. الزمرد الداكن</option>
+                <option value="PurpleRain">3. المطر البنفسجي</option>
+                <option value="CarbonGrey">4. الرمادي الكربوني</option>
+                <option value="BloodOrange">5. البرتقالي الدامي</option>
+                <option value="Light">6. الثيم الفاتح</option>
+            </select>
+        </div>
+        
+        <button id="install-button" style="background-color: var(--secondary-color); display: none;" onclick="promptInstall()">
+            ⬇️ تثبيت/تشغيل على الجهاز (PWA)
+        </button>
+    </div>
+
+    <!-- أزرار التبويبات -->
+    <div class="tab-buttons">
+        <button class="tab-button active" onclick="openTab('dashboardTab')">🏠 لوحة التحكم والإحصائيات</button>
+        <button class="tab-button" onclick="openTab('dataEntryTab')">➕ إضافة/تعديل طالب</button>
+        <button class="tab-button" onclick="openTab('dataViewTab')">📋 عرض البيانات والبحث الفوري</button>
+    </div>
+
+    <!-- ====================================================================== -->
+    <!-- محتوى التبويب 1: لوحة التحكم (Dashboard) - شاشة التفاصيل الرئيسية -->
+    <!-- ====================================================================== -->
+    <div id="dashboardTab" class="tab-content active">
+        <h2>شاشة التفاصيل الرئيسية والإحصائيات</h2>
+        <div class="dashboard-grid">
+            <div class="dashboard-card" style="border-color: var(--primary-color);">
+                <h3>عدد الطلاب الإجمالي</h3>
+                <p class="value" id="stat-total-students" style="color: var(--primary-color);">0</p>
+            </div>
+            <div class="dashboard-card" style="border-color: var(--secondary-color);">
+                <h3>إجمالي المبلغ المحصّل (جنيه مصري)</h3>
+                <p class="value" id="stat-total-paid" style="color: var(--secondary-color);">0</p>
+            </div>
+            <div class="dashboard-card" style="border-color: var(--accent-color);">
+                <h3>تاريخ آخر دفعة تم تسجيلها</h3>
+                <p class="value" style="font-size: 1.5rem; color: var(--accent-color);" id="stat-last-payment-date">---</p>
+            </div>
+        </div>
+        <div style="padding: 15px; background-color: var(--input-bg); border-radius: 8px; border: 1px solid var(--border-color);">
+            <p style="margin: 0; font-weight: 700; color: var(--text-color);">
+برنامج مقدم من مروان هاني النجار لتحفيظ القرآن الكريم               </p>
+        </div>
+    </div>
+
+    <!-- ====================================================================== -->
+    <!-- محتوى التبويب 2: إضافة/تعديل طالب (Data Entry) -->
+    <!-- ====================================================================== -->
+    <div id="dataEntryTab" class="tab-content">
+        <h2 id="form-title">إدخال بيانات طالب جديد</h2>
+        <form id="student-form">
+            <input type="hidden" id="student-id" value="">
+            
+            <label for="student-name">الاسم الثلاثي للطالب: *</label>
+            <input type="text" id="student-name" required placeholder="مثال: مروان هاني النجار">
+            
+            <!-- حقل الصف الدراسي المحدد (Select) -->
+            <label for="student-level">المستوى الدراسي/الصف: *</label>
+            <select id="student-level" required>
+                <option value="" disabled selected>-- اختر الصف الدراسي --</option>
+                <option value="الصف الاول الابتدائي">الصف الاول الابتدائي</option>
+                <option value="الصف الثاني الابتدائي">الصف الثاني الابتدائي</option>
+                <option value="الصف الثالث الابتدائي">الصف الثالث الابتدائي</option>
+                <option value="الصف الرابع الابتدائي">الصف الرابع الابتدائي</option>
+                <option value="الصف الخامس الابتدائي">الصف الخامس الابتدائي</option>
+                <option value="الصف السادس الابتدائي">الصف السادس الابتدائي</option>
+                <option value="الصف الاول الاعدادي">الصف الاول الاعدادي</option>
+                <option value="الصف الثاني الاعدادي">الصف الثاني الاعدادي</option>
+                <option value="الصف الثالث الاعدادي">الصف الثالث الاعدادي</option>
+                <option value="الصف الاول الثانوي">الصف الاول الثانوي</option>
+                <option value="الصف الثاني الثانوي">الصف الثاني الثانوي</option>
+                <option value="الصف الثالث الثانوي">الصف الثالث الثانوي</option>
+                <option value="مرحله جامعيه">مرحله جامعيه</option>
+                <option value="خريج/ه">خريج/ه</option>
+            </select>
+            
+            <label for="student-phone">رقم هاتف الطالب/ولي الأمر (اختياري):</label>
+            <input type="text" id="student-phone" placeholder="اختياري">
+
+            <label for="birth-date">تاريخ الميلاد (اختياري):</label>
+            <input type="date" id="birth-date">
+            
+            <label for="paid-amount">المبلغ المدفوع: (بالجنيه المصري) *</label>
+            <input type="number" id="paid-amount" required min="" value="" placeholder="مثال: 80">
+            
+            <!-- حقل طرق الدفع المحدد (Select) - باللغة الإنجليزية كما طُلب -->
+            <label for="payment-method">طريقة الدفع (Payment Method): *</label>
+            <select id="payment-method" required>
+                <option value="" disabled selected>-- Select Payment Method --</option>
+                <option value="Cash">1. Cash</option>
+                <option value="Instapay">2. Instapay</option>
+                <option value="Vodafone Cash">3. Vodafone Cash</option>
+                <option value="e& Cash">4. e& Cash</option>
+                <option value="Orange Cash">5. Orange Cash</option>
+                <option value="We Pay">6. We Pay</option>
+            </select>
+
+            <label for="last-payment-date">تاريخ آخر دفع: (يتم تعبئته تلقائياً بتاريخ اليوم) *</label>
+            <input type="date" id="last-payment-date" required>
+            
+            <div class="action-buttons" style="margin-top: 20px;">
+                <button type="submit" id="save-button">💾 حفظ البيانات</button>
+                <button type="button" onclick="resetForm(true)" id="clear-button" style="background-color: var(--error-color);">🧹 مسح الحقول</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- ====================================================================== -->
+    <!-- محتوى التبويب 3: عرض البيانات والبحث الفوري (Data View) -->
+    <!-- ====================================================================== -->
+    <div id="dataViewTab" class="tab-content">
+        <h2>قائمة الطلاب المسجلين (للبحث والتعديل)</h2>
+        
+        <div class="search-container">
+            <label for="search-input" style="font-weight: 700; color: var(--text-color);">🔎 ابحث فورياً بالاسم أو المستوى:</label>
+            <input type="text" id="search-input" oninput="renderTable()" placeholder="اكتب للبحث الفوري..." style="max-width: 400px;">
+            <button onclick="exportData('csv')" style="background-color: var(--secondary-color);">📤 تصدير CSV</button>
+            <button onclick="exportData('json')" style="background-color: var(--accent-color);">📤 تصدير JSON</button>
+            <!-- زر الاستيراد الجديد -->
+            <button onclick="document.getElementById('import-file-input').click()" style="background-color: #9b59b6;">📥 استيراد JSON</button>
+            <input type="file" id="import-file-input" accept=".json" onchange="importData(event)">
+        </div>
+        
+        <div class="table-container">
+            <table class="data-table" id="student-table">
+                <thead>
+                    <tr>
+                        <th data-sort-key="name" onclick="sortTable('name')">الاسم</th>
+                        <th data-sort-key="level" onclick="sortTable('level')">المستوى</th>
+                        <!-- تم دمج عرض التاريخين هنا -->
+                        <th data-sort-key="birthDate" onclick="sortTable('birthDate')">تاريخ الميلاد (ميلادي/هجري)</th>
+                        <th data-sort-key="paidAmount" onclick="sortTable('paidAmount')">المبلغ المدفوع (جنيه)</th>
+                        <th data-sort-key="paymentMethod" onclick="sortTable('paymentMethod')">طريقة الدفع</th>
+                        <th data-sort-key="lastPaymentDate" onclick="sortTable('lastPaymentDate')">آخر دفع (ميلادي/هجري)</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="student-table-body">
+                    <!-- سيتم ملء الصفوف هنا بواسطة JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <p id="no-data-message" style="text-align: center; color: var(--primary-color); margin-top: 30px; display: none; font-weight: 700;">لا توجد بيانات لعرضها أو لا يوجد تطابق لنتيجة البحث.</p>
+    </div>
+
+</div> <!-- نهاية .container -->
+
+<!-- الفوتر المضيء (الإهداء) -->
+<div id="footer-gift">
+    هدية من مروان هاني النجار إلى تحفيظ القرآن الكريم - Prog Marwan H EL-Nagar
+</div>
+
+<script>
+    // ======================================================================
+    // القسم 1: الثوابت والمتغيرات الرئيسية
+    // ======================================================================
+    const STORAGE_KEY = 'studentPaymentsDataV4_Marwan_Final'; // مفتاح تخزين جديد ومنظم
+    const THEME_KEY = 'marwan_payment_theme'; // مفتاح تخزين الثيم
+    const CURRENCY_CODE = 'EGP'; // ** الكود الجديد: جنيه مصري **
+    
+    let students = [];
+    let sortConfig = { key: 'name', direction: 'asc' };
+    let deferredPrompt = null; // متغير لتخزين حدث PWA
+
+    /**
+     * يحول كائن Date إلى سلسلة نصية بتنسيق YYYY-MM-DD
+     */
+    function dateToInputString(date) {
+        if (!date || isNaN(date)) return '';
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    // ======================================================================
+    // القسم 2: إدارة الإشعارات المخصصة (بدلاً من Alert/Confirm)
+    // ======================================================================
+    function showAlert(message, type = 'info') {
+        const alertBox = document.getElementById('custom-alert');
+        if (!alertBox) return;
+
+        // إعداد التنسيق بناءً على نوع الرسالة
+        let bgColor = getComputedStyle(document.body).getPropertyValue('--primary-color'); 
+        if (type === 'success') bgColor = getComputedStyle(document.body).getPropertyValue('--secondary-color');
+        if (type === 'error') bgColor = getComputedStyle(document.body).getPropertyValue('--error-color');
+        if (type === 'warning') bgColor = getComputedStyle(document.body).getPropertyValue('--accent-color');
+
+
+        alertBox.textContent = message;
+        alertBox.style.backgroundColor = bgColor;
+        alertBox.style.color = getComputedStyle(document.body).getPropertyValue('--text-color') === '#ffffff' ? '#000000' : '#ffffff';
+        alertBox.style.display = 'block';
+
+        // إخفاء الرسالة بعد 4 ثواني
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 4000);
+    }
+    
+    // ======================================================================
+    // القسم 3: إدارة الوقت والتاريخ (ميلادي وهجري) - مُحسّن
+    // ======================================================================
+
+    /**
+     * تحويل تاريخ ميلادي إلى عرض ميلادي/هجري
+     * @param {Date | null} dateObj كائن التاريخ المراد عرضه
+     * @returns {string} سلسلة HTML تعرض التاريخين.
+     */
+    function formatDateTimeDisplay(dateObj) {
+        if (!dateObj || isNaN(dateObj.getTime())) {
+            return '---';
+        }
+
+        const lang = 'ar-EG';
+
+        // التنسيق الميلادي المختصر (YYYY/MM/DD)
+        const gregorianOptions = { 
+            year: 'numeric', 
+            month: '2-digit', 
+            day: '2-digit', 
+        };
+        const gregorianDate = dateObj.toLocaleDateString(lang, gregorianOptions).replace(/\//g, '-');
+
+        // التنسيق الهجري المختصر (YYYY/MM/DD) - أم القرى
+        const hijriOptions = { 
+            calendar: 'islamic-umalqura', 
+            year: 'numeric', 
+            month: '2-digit', 
+            day: '2-digit'
+        };
+        // استخدام 'ar-SA' لضمان تنسيق هجري صحيح
+        const hijriDate = dateObj.toLocaleDateString('ar-SA', hijriOptions).replace('هـ', '').trim().replace(/\//g, '-');
+        
+        // عرض التاريخين في سطرين لتحسين الرؤية في الجدول
+        return `<span class="gregorian">${gregorianDate}</span><span class="hijri">(${hijriDate} هـ)</span>`;
+    }
+    
+    /**
+     * تحديث عرض التاريخ والوقت في شريط العنوان (بشكل مفصّل)
+     */
+    function updateHeaderDateTime() {
+        const now = new Date();
+        const lang = 'ar-EG';
+
+        // التنسيق الميلادي التفصيلي
+        const gregorianOptions = { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit',
+            hour12: true
+        };
+        const gregorianDate = now.toLocaleDateString(lang, gregorianOptions);
+
+        // التنسيق الهجري التفصيلي (أم القرى)
+        const hijriOptions = { 
+            calendar: 'islamic-umalqura', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric'
+        };
+        const hijriDate = now.toLocaleDateString('ar-SA', hijriOptions);
+        
+        const display = document.getElementById('datetime-display');
+        display.innerHTML = `**ميلادي:** ${gregorianDate} <br> **هجري:** ${hijriDate}`;
+        
+        // تحديث كل ثانية
+        setTimeout(updateHeaderDateTime, 1000);
+    }
+    
+    // ======================================================================
+    // القسم 4: إدارة الثيمات (Dark Themes)
+    // ======================================================================
+    
+    /**
+     * تغيير الثيم وتخزينه في Local Storage
+     */
+    function changeTheme(themeName) {
+        const body = document.body;
+        // إزالة جميع كلاسات الثيمات ما عدا 'theme-DarkNights' إذا كان هو المطلوب
+        body.className = body.className.split(' ').filter(c => !c.startsWith('theme-')).join(' ');
+
+        if (themeName !== 'Light') {
+            body.classList.add(`theme-${themeName}`);
+        }
+        
+        // حفظ اختيار المستخدم
+        localStorage.setItem(THEME_KEY, themeName);
+        
+        // تحديث رسالة الإشعار
+        const selectedOptionText = document.getElementById('theme-selector').options[document.getElementById('theme-selector').selectedIndex].text;
+        showAlert(`تم تطبيق ثيم: ${selectedOptionText}`, 'info');
+    }
+    
+    /**
+     * تحميل الثيم المحفوظ عند بدء التشغيل
+     */
+    function loadTheme() {
+        const savedTheme = localStorage.getItem(THEME_KEY) || 'DarkNights'; 
+        
+        // تطبيق الثيم المحفوظ مباشرة على الـ body
+        if (savedTheme !== 'Light') {
+             document.body.classList.add(`theme-${savedTheme}`);
+        }
+        document.getElementById('theme-selector').value = savedTheme;
+    }
+
+    // ======================================================================
+    // القسم 5: ميزة تثبيت PWA (زر التنزيل)
+    // ======================================================================
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // عرض زر التثبيت عندما يكون متاحًا
+        document.getElementById('install-button').style.display = 'inline-block';
+    });
+    
+    window.addEventListener('appinstalled', () => {
+        // إخفاء الزر بعد التثبيت
+        document.getElementById('install-button').style.display = 'none';
+        showAlert('✅ تم تثبيت البرنامج كتطبيق بنجاح!', 'success');
+    });
+
+    function promptInstall() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('PWA: User accepted the install prompt');
+                } else {
+                    console.log('PWA: User dismissed the install prompt');
+                }
+                deferredPrompt = null;
+            });
+        } else {
+            showAlert('لتشغيل البرنامج على جهازك كـ (تطبيق)، اضغط على "..." أو "Share" في المتصفح ثم اختر "Add to Home Screen" أو "Install App".', 'info');
+        }
+    }
+    
+    // ======================================================================
+    // القسم 6: إدارة البيانات (CRUD) والتخزين
+    // ======================================================================
+    function loadData() {
+        try {
+            const data = localStorage.getItem(STORAGE_KEY);
+            if (data) {
+                // التأكد من تحويل حقول التاريخ والأرقام بشكل سليم
+                students = JSON.parse(data).map(student => ({
+                    ...student,
+                    // تحويل السلسلة النصية المخزنة إلى كائن Date
+                    lastPaymentDate: student.lastPaymentDate ? new Date(student.lastPaymentDate) : null,
+                    birthDate: student.birthDate ? new Date(student.birthDate) : null,
+                    paidAmount: Number(student.paidAmount) || 0,
+                    paymentMethod: student.paymentMethod || 'Cash', 
+                }));
+            } else {
+                students = [];
+            }
+        } catch (e) {
+            console.error("Error loading data:", e);
+            showAlert('❌ خطأ: فشل في تحميل البيانات من التخزين المحلي. تم البدء بسجل فارغ.', 'error');
+            students = [];
+        }
+    }
+
+    function saveData() {
+        // تحويل كائنات التاريخ إلى سلاسل YYYY-MM-DD للحفظ
+        const dataToSave = students.map(student => ({
+            ...student,
+            lastPaymentDate: dateToInputString(student.lastPaymentDate),
+            birthDate: dateToInputString(student.birthDate),
+        }));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+    }
+    
+    function validateInputs(name, level, paidAmount, paymentMethod, lastPaymentDateStr) {
+        if (!name || name.trim() === '') {
+            showAlert('⚠️ خطأ: الاسم لا يمكن أن يكون فارغاً.', 'error');
+            return false;
+        }
+        if (!level || level.trim() === '') {
+            showAlert('⚠️ خطأ: يجب اختيار المستوى الدراسي.', 'error');
+            return false;
+        }
+        if (isNaN(paidAmount) || paidAmount < 0) {
+            showAlert('⚠️ خطأ: المبلغ المدفوع يجب أن يكون رقماً صحيحاً وموجباً.', 'error');
+            return false;
+        }
+        if (!paymentMethod || paymentMethod.trim() === '') {
+            showAlert('⚠️ خطأ: يجب اختيار طريقة الدفع.', 'error');
+            return false;
+        }
+        if (!lastPaymentDateStr || lastPaymentDateStr.trim() === '') {
+            showAlert('⚠️ خطأ: يجب تحديد تاريخ آخر دفع.', 'error');
+            return false;
+        }
+        return true;
+    }
+
+    document.getElementById('student-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        try {
+            const id = document.getElementById('student-id').value;
+            const name = document.getElementById('student-name').value.trim();
+            const level = document.getElementById('student-level').value;
+            const phone = document.getElementById('student-phone').value.trim();
+            const paidAmount = parseFloat(document.getElementById('paid-amount').value) || 0;
+            const paymentMethod = document.getElementById('payment-method').value;
+            const birthDateStr = document.getElementById('birth-date').value;
+            const lastPaymentDateStr = document.getElementById('last-payment-date').value;
+
+            if (!validateInputs(name, level, paidAmount, paymentMethod, lastPaymentDateStr)) {
+                return;
+            }
+            
+            // إنشاء كائنات التاريخ من السلاسل النصية
+            const birthDate = birthDateStr ? new Date(birthDateStr) : null;
+            const lastPaymentDate = lastPaymentDateStr ? new Date(lastPaymentDateStr) : new Date();
+
+            const isNew = id === '';
+            
+            const studentData = { id, name, level, phone, paidAmount, paymentMethod, birthDate, lastPaymentDate };
+
+            if (isNew) {
+                studentData.id = Date.now().toString(); 
+                students.push(studentData);
+                showAlert('✅ تم حفظ بيانات الطالب بنجاح.', 'success');
+            } else {
+                const index = students.findIndex(s => s.id === id);
+                if (index !== -1) {
+                    students[index] = { ...students[index], ...studentData };
+                    showAlert('✅ تم تحديث بيانات الطالب بنجاح.', 'success');
+                }
+            }
+
+            saveData();
+            resetForm(false); 
+            calculateAndRenderDashboard();
+            renderTable(); // للتأكد من تحديث الجدول فورًا
+            openTab('dataViewTab');
+            
+        } catch (e) {
+            console.error("Error saving data:", e);
+            showAlert('❌ حدث خطأ غير متوقع أثناء الحفظ.', 'error');
+        }
+    });
+    
+    // دالة لمسح أو إعادة تعيين النموذج
+    function resetForm(askConfirmation = true) {
+        if (askConfirmation) {
+            if (students.length > 0 && !confirm('هل أنت متأكد من مسح جميع الحقول في نموذج الإدخال؟')) { 
+                return;
+            } 
+        } 
+        
+        document.getElementById('student-id').value = '';
+        document.getElementById('student-name').value = '';
+        document.getElementById('student-level').value = ''; 
+        document.getElementById('student-phone').value = '';
+        document.getElementById('paid-amount').value = '0';
+        document.getElementById('birth-date').value = '';
+        document.getElementById('payment-method').value = '';
+
+        // تعبئة تاريخ اليوم تلقائياً عند مسح الحقول
+        document.getElementById('last-payment-date').value = dateToInputString(new Date()); 
+
+        document.getElementById('form-title').textContent = 'إدخال بيانات طالب جديد';
+        document.getElementById('save-button').textContent = '💾 حفظ البيانات';
+        
+        if (askConfirmation) {
+            showAlert('🧹 تم مسح حقول الإدخال.', 'info');
+        }
+    }
+
+    function editStudent(id) {
+        const student = students.find(s => s.id === id);
+        if (student) {
+            document.getElementById('student-id').value = student.id;
+            document.getElementById('student-name').value = student.name;
+            document.getElementById('student-level').value = student.level;
+            document.getElementById('student-phone').value = student.phone;
+            document.getElementById('paid-amount').value = student.paidAmount;
+            document.getElementById('payment-method').value = student.paymentMethod;
+            
+            // تحويل التاريخ لعرضه في حقل input[type=date]
+            document.getElementById('birth-date').value = dateToInputString(student.birthDate);
+            document.getElementById('last-payment-date').value = dateToInputString(student.lastPaymentDate);
+            
+            document.getElementById('form-title').textContent = `تعديل بيانات الطالب: ${student.name}`;
+            document.getElementById('save-button').textContent = '🔄 تحديث البيانات';
+            
+            openTab('dataEntryTab'); 
+            showAlert(`يتم تعديل بيانات الطالب: ${student.name}`, 'info');
+        }
+    }
+
+    function deleteStudent(id) {
+        const student = students.find(s => s.id === id);
+        if (!student) return;
+
+        if (confirm(`هل أنت متأكد من حذف بيانات الطالب ${student.name}؟ لا يمكن التراجع عن هذا الإجراء.`)) {
+            students = students.filter(s => s.id !== id);
+            saveData();
+            showAlert('🗑️ تم حذف بيانات الطالب بنجاح.', 'success');
+            renderTable();
+            calculateAndRenderDashboard();
+        }
+    }
+
+    // ======================================================================
+    // القسم 7: لوحة التحكم (Dashboard Logic)
+    // ======================================================================
+    function calculateAndRenderDashboard() {
+        const totalStudents = students.length;
+        // المبلغ "الموجود" هو إجمالي ما تم تحصيله
+        const totalPaid = students.reduce((sum, s) => sum + s.paidAmount, 0);
+        
+        let lastPaymentDateDisplay = '---';
+        if (students.length > 0) {
+            // تصفية الطلاب الذين لديهم تاريخ صحيح وفرزهم
+            const sortedByDate = students
+                .filter(s => s.lastPaymentDate instanceof Date && !isNaN(s.lastPaymentDate))
+                .sort((a, b) => b.lastPaymentDate.getTime() - a.lastPaymentDate.getTime());
+                
+            if (sortedByDate.length > 0) {
+                // عرض آخر تاريخ ميلادي فقط في الداشبورد
+                lastPaymentDateDisplay = sortedByDate[0].lastPaymentDate.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+            }
+        }
+
+        document.getElementById('stat-total-students').textContent = totalStudents;
+        // تنسيق المبلغ كعملة (جنيه مصري EGP) لتكون القراءة سهلة
+        document.getElementById('stat-total-paid').textContent = totalPaid.toLocaleString('ar-EG', { style: 'currency', currency: CURRENCY_CODE, minimumFractionDigits: 0 });
+        document.getElementById('stat-last-payment-date').textContent = lastPaymentDateDisplay;
+    }
+
+    // ======================================================================
+    // القسم 8: إدارة الجدول (الفرز والبحث الفوري)
+    // ======================================================================
+    function sortTable(key) {
+        let direction = 'asc';
+        if (sortConfig.key === key && sortConfig.direction === 'asc') {
+            direction = 'desc';
+        }
+        sortConfig = { key, direction };
+
+        // الفرز حسب النوع (رقم، تاريخ، نص)
+        students.sort((a, b) => {
+            let valA = a[key];
+            let valB = b[key];
+
+            if (key === 'lastPaymentDate' || key === 'birthDate') {
+                const dateA = valA instanceof Date && !isNaN(valA) ? valA.getTime() : 0;
+                const dateB = valB instanceof Date && !isNaN(valB) ? valB.getTime() : 0;
+                
+                if (dateA === 0 && dateB === 0) return 0;
+                if (dateA === 0) return direction === 'asc' ? 1 : -1;
+                if (dateB === 0) return direction === 'asc' ? -1 : 1;
+                
+                if (dateA < dateB) return direction === 'asc' ? -1 : 1;
+                if (dateA > dateB) return direction === 'asc' ? 1 : -1;
+                return 0;
+            }
+            
+            if (typeof valA === 'number') {
+                if (valA < valB) return direction === 'asc' ? -1 : 1;
+                if (valA > valB) return direction === 'asc' ? 1 : -1;
+                return 0;
+            }
+
+            // فرز نصي افتراضي
+            const strA = String(valA || '').toLowerCase();
+            const strB = String(valB || '').toLowerCase();
+            if (strA < strB) return direction === 'asc' ? -1 : 1;
+            if (strA > strB) return direction === 'asc' ? 1 : -1;
+            return 0;
+        });
+
+        renderTable();
+    }
+
+    /**
+     * عرض الجدول بناءً على حالة البيانات الحالية والبحث الفوري.
+     */
+    function renderTable() {
+        const tableBody = document.getElementById('student-table-body');
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        
+        tableBody.innerHTML = '';
+
+        const filteredStudents = students.filter(student => {
+            // بحث فوري بالاسم أو المستوى أو طريقة الدفع
+            return (student.name && student.name.toLowerCase().includes(searchTerm)) || 
+                   (student.level && student.level.toLowerCase().includes(searchTerm)) ||
+                   (student.paymentMethod && student.paymentMethod.toLowerCase().includes(searchTerm)) ||
+                   (student.phone && student.phone.toLowerCase().includes(searchTerm)); // البحث بالهاتف أيضاً
+        });
+        
+        document.getElementById('no-data-message').style.display = filteredStudents.length === 0 ? 'block' : 'none';
+        if (filteredStudents.length === 0) return;
+
+        filteredStudents.forEach(student => {
+            
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+                <td>${student.name}</td>
+                <td>${student.level}</td>
+                <!-- عرض التاريخين معاً -->
+                <td class="date-cell">${formatDateTimeDisplay(student.birthDate)}</td>
+                <td class="amount-cell">${student.paidAmount.toLocaleString('ar-EG', { style: 'currency', currency: CURRENCY_CODE, minimumFractionDigits: 0 })}</td>
+                <td><span style="font-weight: 700; color: var(--accent-color);">${student.paymentMethod || '---'}</span></td>
+                <!-- عرض التاريخين معاً -->
+                <td class="date-cell">${formatDateTimeDisplay(student.lastPaymentDate)}</td>
+                <td class="action-buttons-cell">
+                    <button onclick="editStudent('${student.id}')" style="background-color: var(--accent-color);">✏️ تعديل</button>
+                    <button onclick="deleteStudent('${student.id}')" style="background-color: var(--error-color);">🗑️ حذف</button>
+                </td>
+            `;
+        });
+    }
+
+    // ======================================================================
+    // القسم 9: تصدير واستيراد البيانات (Export / Import Logic)
+    // ======================================================================
+    
+    /**
+     * تصدير البيانات إلى ملف JSON أو CSV
+     */
+    function exportData(format) {
+        if (students.length === 0) {
+            showAlert('لا توجد بيانات للتصدير.', 'info');
+            return;
+        }
+
+        const formattedStudents = students.map(student => {
+            const dateStr = (d) => dateToInputString(d); // استخدام الدالة الموحدة
+            
+            // إضافة عرض التاريخ الهجري في التصدير للمرجعية
+            const hijriDateStr = (d) => {
+                if (!d || isNaN(d.getTime())) return '';
+                // استخدام 'ar-SA' و 'islamic-umalqura' لضمان تنسيق هجري
+                return d.toLocaleDateString('ar-SA', { calendar: 'islamic-umalqura', year: 'numeric', month: '2-digit', day: '2-digit' }).replace('هـ', '').trim();
+            };
+
+            return {
+                ID: student.id,
+                الاسم: student.name,
+                المستوى: student.level,
+                الهاتف: student.phone || '',
+                المبلغ_المدفوع_جنيه: student.paidAmount, // تحديث اسم الحقل
+                طريقة_الدفع: student.paymentMethod,
+                تاريخ_الميلاد_ميلادي: dateStr(student.birthDate),
+                تاريخ_الميلاد_هجري: hijriDateStr(student.birthDate),
+                تاريخ_آخر_دفع_ميلادي: dateStr(student.lastPaymentDate),
+                تاريخ_آخر_دفع_هجري: hijriDateStr(student.lastPaymentDate)
+            };
+        });
+
+        if (format === 'json') {
+            const jsonStr = JSON.stringify(formattedStudents, null, 2);
+            downloadFile(jsonStr, 'student_payments_data_marwan.json', 'application/json');
+            showAlert('✅ تم تصدير البيانات بتنسيق JSON.', 'success');
+        } else if (format === 'csv') {
+            const csv = convertToCSV(formattedStudents);
+            downloadFile(csv, 'student_payments_data_marwan.csv', 'text/csv;charset=utf-8;');
+            showAlert('✅ تم تصدير البيانات بتنسيق CSV.', 'success');
+        }
+    }
+
+    /**
+     * تحويل مصفوفة الكائنات إلى تنسيق CSV
+     */
+    function convertToCSV(objArray) {
+        const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+        let str = '';
+        
+        // رؤوس الأعمدة (Headers)
+        let header = Object.keys(array[0]).map(key => `"${key}"`).join(',');
+        str += header + '\r\n';
+
+        // محتوى البيانات
+        for (let i = 0; i < array.length; i++) {
+            let line = '';
+            for (let index in array[i]) {
+                if (line !== '') line += ',';
+                // تغليف النصوص بعلامات اقتباس مزدوجة
+                const value = array[i][index] !== null ? String(array[i][index]).replace(/"/g, '""') : '';
+                line += `"${value}"`;
+            }
+            str += line + '\r\n';
+        }
+        return str;
+    }
+    
+    /**
+     * معالجة الاستيراد من ملف JSON
+     */
+    function importData(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const importedData = JSON.parse(e.target.result);
+                
+                if (!Array.isArray(importedData)) {
+                    showAlert('❌ خطأ: الملف المستورد ليس تنسيق JSON صحيحًا (مصفوفة بيانات).', 'error');
+                    return;
+                }
+
+                const newStudents = importedData.map(item => {
+                    // تحويل وتجهيز البيانات المستوردة للتخزين المحلي
+                    const id = item.ID || Date.now().toString() + Math.random().toString(36).substring(2, 9);
+                    return {
+                        id: id,
+                        name: item.الاسم || 'طالب مجهول',
+                        level: item.المستوى || 'غير محدد',
+                        phone: item.الهاتف || '',
+                        // يجب التأكد من تحويل اسم حقل المبلغ القديم أو الجديد
+                        paidAmount: Number(item.المبلغ_المدفوع_جنيه || item.المبلغ_المدفوع_ريال || 0),
+                        paymentMethod: item.طريقة_الدفع || 'Cash',
+                        // استخدام تاريخ آخر دفع ميلادي للتحويل لكائن Date
+                        birthDate: item.تاريخ_الميلاد_ميلادي ? new Date(item.تاريخ_الميلاد_ميلادي) : null,
+                        lastPaymentDate: item.تاريخ_آخر_دفع_ميلادي ? new Date(item.تاريخ_آخر_دفع_ميلادي) : new Date(),
+                    };
+                }).filter(s => s.name.trim() !== 'طالب مجهول'); // تصفية أي بيانات فارغة جداً
+
+                // إضافة البيانات الجديدة إلى القائمة الحالية
+                students.push(...newStudents);
+                saveData();
+                renderTable();
+                calculateAndRenderDashboard();
+                showAlert(`✅ تم استيراد ${newStudents.length} سجل جديد بنجاح.`, 'success');
+
+            } catch (error) {
+                console.error("Error importing data:", error);
+                showAlert('❌ خطأ في معالجة ملف JSON: تأكد من أن التنسيق صحيح.', 'error');
+            }
+        };
+        reader.readAsText(file);
+    }
+    
+    function downloadFile(content, fileName, mimeType) {
+        const blob = new Blob([`\ufeff${content}`], { type: mimeType }); // \ufeff لإضافة BOM لدعم UTF-8 في CSV
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    
+    // ======================================================================
+    // القسم 10: إدارة التبويبات (Tabs)
+    // ======================================================================
+    function openTab(tabId) {
+        const tabContents = document.querySelectorAll('.tab-content');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        
+        tabContents.forEach(content => content.classList.remove('active'));
+        tabButtons.forEach(button => button.classList.remove('active'));
+
+        document.getElementById(tabId).classList.add('active');
+        document.querySelector(`.tab-button[onclick="openTab('${tabId}')"]`).classList.add('active');
+        
+        // ** التعديل الجديد: تعبئة تاريخ اليوم تلقائياً عند فتح تبويب الإدخال **
+        if (tabId === 'dataEntryTab' && document.getElementById('student-id').value === '') {
+            // يتم التعبئة فقط إذا كان النموذج للإضافة الجديدة (الـ ID فارغ)
+            document.getElementById('last-payment-date').value = dateToInputString(new Date());
+        }
+        
+        // تحديث الجدول عند فتح تبويب العرض
+        if (tabId === 'dataViewTab') {
+            renderTable();
+        }
+        // تحديث لوحة التحكم عند فتح تبويب الداشبورد
+        if (tabId === 'dashboardTab') {
+            calculateAndRenderDashboard();
+        }
+    }
+
+    // ======================================================================
+    // القسم 11: التحميل الأولي (Initialization)
+    // ======================================================================
+    window.onload = function() {
+        // 1. تحميل الثيم المحفوظ وتطبيقه
+        loadTheme();
+        
+        // 2. بدء تحديث الوقت والتاريخ (الميلادي والهجري) - في شريط العنوان
+        updateHeaderDateTime();
+
+        // 3. تحميل البيانات من التخزين المحلي
+        loadData();
+        
+        // 4. حساب وعرض إحصائيات لوحة التحكم
+        calculateAndRenderDashboard();
+        
+        // 5. فتح التبويب الافتراضي
+        openTab('dashboardTab'); 
+        
+        // 6. التأكد من أن زر المسح يستخدم resetForm(true) لإظهار رسالة التنبيه (في حال عملها)
+        document.getElementById('clear-button').onclick = function() { resetForm(true); };
+    };
+    
+    // تعريف الدوال في النطاق العام
+    window.openTab = openTab;
+    window.editStudent = editStudent;
+    window.deleteStudent = deleteStudent;
+    window.sortTable = sortTable;
+    window.exportData = exportData;
+    window.changeTheme = changeTheme;
+    window.promptInstall = promptInstall;
+    window.importData = importData;
+
+</script>
+
+</body>
+</html>
